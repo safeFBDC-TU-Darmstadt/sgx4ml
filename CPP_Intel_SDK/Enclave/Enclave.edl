@@ -1,0 +1,44 @@
+enclave {
+	
+	// Import the Ocalls for trusted mutex
+	from "sgx_tstdc.edl" import *;
+    from "sgx_pthread.edl" import *;
+
+    trusted {
+        public void ecall_noop();
+        public void ecall_set_threads(size_t num_threads);
+        public void ecall_setup_dnnl();
+        public void ecall_create_NN([in,string] const char *name,
+                                    long batch_size,
+                                    [user_check] const void *weights_pointer,
+                                    [user_check] const void *biases_pointer);
+        public void ecall_link_dataset([user_check] const void * dataset_p);
+        public void ecall_link_labels([user_check] const void * labels_p);
+        public void ecall_load_dataset_to_enclave([user_check] float **dataset_p, size_t image_size, size_t dataset_size);
+        public void ecall_load_labels_to_enclave([user_check] uint8_t *label_p, size_t label_size);
+        public void ecall_create_batched_dataset(size_t batch_size);
+        public void ecall_create_random_batched_dataset(size_t batch_size, size_t image_size, size_t batch_count);
+        public void ecall_run_inference([out] int *result);
+        public void ecall_batched_inference();
+        public size_t ecall_get_batch_count();
+        public void ecall_batch_inference_prepare();
+        public void ecall_batch_input(int batch_index);
+        public void ecall_batch_execute();
+        public void ecall_batch_save_result();
+        public void ecall_batch_infer(int batch_index);
+        public void ecall_batch_infer_in_out_vector([in, count=input_count] float * input_data,
+                                                    size_t input_count,
+                                                    [out, count=result_count] float * result,
+                                                    size_t result_count);
+        public void ecall_batch_infer_in_out_classes([in, count=input_count] float * input_data,
+                                                     size_t input_count,
+                                                     [out, count=batch_size] uint16_t * result,
+                                                     size_t batch_size);
+        public void ecall_check_results([out] int *result);
+        public void ecall_infer_one();
+    };
+
+    untrusted {
+		void ocall_print_string([in, string] const char *string);
+    };
+};

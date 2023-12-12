@@ -1,0 +1,29 @@
+<!-- The big enclave does not fit into EPC on SGXv1 but has enough space for the larger neural networks -->
+<EnclaveConfiguration>
+  <ProdID>0</ProdID>
+  <ISVSVN>0</ISVSVN>
+  <!-- 64 KB: 0x10000      -->
+  <StackMinSize>0x10000</StackMinSize>
+  <StackMaxSize>0x100000</StackMaxSize>
+  <HeapMinSize>0x40000</HeapMinSize>
+  <!-- 80  MB: 0x5000000   -->
+  <!-- 128 MB: 0x8000000   -->
+  <!--   4 GB: 0x100000000 -->
+  <HeapInitSize>0x100000000</HeapInitSize>
+  <HeapMaxSize>0x100000000</HeapMaxSize>
+  <TCSNum>17</TCSNum>
+  <TCSMinPool>1</TCSMinPool>
+  <TCSMaxNum>17</TCSMaxNum>
+  <TCSPolicy>0</TCSPolicy>
+  <!-- Recommend changing 'DisableDebug' to 1 to make the enclave undebuggable for enclave release -->
+  <DisableDebug>0</DisableDebug>
+  <MiscSelect>0</MiscSelect>
+  <MiscMask>0xFFFFFFFF</MiscMask>
+  <!-- 10  MB:  0xA00000   -->
+  <!-- 64  MB: 0x4000000   -->
+  <ReservedMemMinSize> 0x4000000</ReservedMemMinSize>
+  <ReservedMemInitSize>0x4000000</ReservedMemInitSize>
+  <ReservedMemMaxSize> 0x4000000</ReservedMemMaxSize>
+  <!-- On SGX1 platform, ReservedMemExecutable==1 means set reserved memory as read, write and execute (RWX) -->
+  <ReservedMemExecutable>1</ReservedMemExecutable>
+</EnclaveConfiguration>

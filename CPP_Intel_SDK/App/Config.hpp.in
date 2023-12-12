@@ -1,0 +1,11 @@
+//
+// Created by adrian on 08.12.22.
+//
+
+#ifndef SGX_DNNL_CONFIG_HPP_IN_HPP
+#define SGX_DNNL_CONFIG_HPP_IN_HPP
+
+// Global data
+constexpr char ENCLAVE_NAME[] = "@ENCLAVE_FILE_NAME@";
+
+#endif //SGX_DNNL_CONFIG_HPP_IN_HPP
